@@ -1,0 +1,174 @@
+﻿
+<div id="Index" class="row pb-4 mt-1">
+    <div id="LeftSide" class="col-3 pb-3 mt-2 ml-3">
+
+        <div class="search-wrapper mt-3">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        Search
+                    </span>
+                </div>
+                <input id="Search" type="search" class="form-control" placeholder="search list"
+                       maxlength="50" />
+            </div>
+        </div>
+
+        <div class="list-wrapper mt-3">
+            <!-- ul pattern -->
+            <ul id="Lists" class="list-group">
+                <!-- render li here -->
+            </ul>
+        </div>
+    </div>
+
+    <div id="CenterPanel" class="col-5 ml-4 mr-4 mt-2">
+        <div id="TaskHeader" class="card bg-dark text-white mt-2">
+            <div class="card-body">
+                <h3 class="card-title header-title"><!-- list name --></h3>
+                <p class="card-text header-current-date"><!-- date --></p>
+            </div>
+        </div>
+
+        <div id="TaskBody">
+            <form id="AddListForm" method="post" class="mt-3">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <input class="btn btn-success" type="submit" value="+" />
+                    </div>
+                    <input id="ListName" name="Name" placeholder="list name" type="text" class="form-control"
+                           required pattern="^[a-zA-Z0-9\s.]+$" maxlength="50" />
+                </div>
+            </form>
+            <div class="mt-2 add-wrapper">
+                <form id="AddTaskForm" method="post">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <input class="btn btn-success" type="submit" value="+" />
+                        </div>
+                        <input id="AddTaskId" name="ListId" type="hidden" />
+                        <input name="Name" placeholder="task name" type="text" class="form-control"
+                               required pattern="^[a-zA-Z0-9\s.]+$" maxlength="50" />
+                        <input name="End" type="date" class="form-control" required />
+                    </div>
+                </form>
+            </div>
+
+            <!-- nav task -->
+            <ul id="Tabs" class="nav nav-tabs mt-2" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#ListTab" id="todo-tab" data-toggle="tab">To Do</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#TaskTab" id="done-tab" data-toggle="tab">Done</a>
+                </li>
+            </ul>
+
+            <div id="TabsContent" class="tab-content">
+                <div class="tab-pane fade show active" id="ListTab" role="tabpanel">
+                    <div class="task-list-wrapper">
+                        <ul id="TodoListOfTasks" class="list-group list-group-flush mt-1">
+                            <!-- render li here -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="TaskTab" role="tabpanel">
+                    <ul id="DoneListOfTasks" class="list-group list-group-flush mt-1">
+                        <!-- render li here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="RightSide" class="col-3 pb-3 mt-2">
+
+        <div class="bg-white mt-2 p-1 pl-3 pr-3">
+            <h4 class="action-title mt-2"><!-- list name --></h4>
+            <!-- link list -->
+            <ul class="list-unstyled">
+                <li id="EditLink" class="mt-3 mb-3"><a href="#">Edit</a></li>
+                <li id="DeleteLink" class="mb-2"><a href="#">Delete</a></li>
+                <li class="mt-4">
+                    <form id="DoneForm" method="post">
+                        <input id="DoneId" name="Id" type="hidden" />
+                        <button type="submit" class="btn btn-success disabled">Done</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <!-- form to edit list -->
+        <form id="EditListForm" class="d-none bg-white mt-2 p-1 pl-3 pr-3 pt-2" method="post">
+            <h5>Edit list:</h5>
+            <input id="EditListId" name="Id" type="hidden" />
+
+            <div class="form-group">
+                <label for="EditListName">Name:</label>
+                <input id="EditListName" name="Name" type="text" class="form-control form-control-sm" placeholder="list name"
+                       required pattern="^[a-zA-Z0-9\s.]+$" maxlength="50" />
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" class="btn btn-sm btn-primary d-block" value="Confirm" />
+                <button id="ListEditCancel" type="button" class="btn btn-sm btn-warning d-block">Cancel</button>
+            </div>
+        </form>
+
+        <!-- form to edit form -->
+        <form id="EditTaskForm" class="d-none bg-white mt-2 p-1 pl-3 pr-3 pt-2">
+            <h5>Edit task:</h5>
+
+            <input id="EditTaskId" name="Id" type="hidden" />
+            <div class="form-group">
+                <label for="EditTaskName">Name</label>
+                <input id="EditTaskName" name="Name" type="text" class="form-control" placeholder="task name"
+                       required pattern="^[a-zA-Z0-9\s.]+$" maxlength="50" />
+            </div>
+            <div class="form-group">
+                <label for="EditEndDate">End date</label>
+                <input id="EditEndDate" name="End" type="date" class="form-control" required />
+            </div>
+            <div class="form-group d-flex justify-content-between">
+                <input type="submit" class="btn btn-sm btn-primary d-block" value="Confirm" />
+                <button id="EditTaskCancel" type="button" class="btn btn-sm btn-warning d-block">Cancel</button>
+            </div>
+        </form>
+
+        <!-- alert form delete list or task -->
+        <div id="DeleteConfirm" class="alert alert-danger d-none mt-2" role="alert">
+            <h5 class="alert-heading text-center">Are you sure?</h5>
+            <p class="text-center">Element: "<span id="DeleteObjName"></span>" will be deleted.</p>
+            <hr />
+            <form id="DeleteForm" method="delete">
+                <input id="DeleteId" name="Id" type="hidden" />
+                <div class="d-flex justify-content-around">
+                    <input type="submit" class="btn btn-sm btn-success d-block" value="Confirm" />
+                    <button id="DeleteCancel" class="btn btn-sm btn-warning d-block" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- lists => li pattern -->
+<!--
+<li class="list-group-item" data-id="1">List 1</li>
+<li class="list-group-item">List 2</li>
+<li class="list-group-item">List 3</li>
+-->
+
+<!-- tasks => li pattern -->
+<!--
+@*
+    <li class="list-group-item d-flex justify-content-between">
+        <div class="li-content-wrapper">
+            <div class="justify-content-between align-items-center">
+                <input type="checkbox" />
+                <span class="task-name"><!-- task name --></span>
+            </div>
+            <div class="mt-1 task-to-do">TO DO<!-- status TO DO or DONE --></div>
+        </div>
+        <span class="added-time">2 days ago<!-- added time --></span>
+    </li>
+*@
+-->

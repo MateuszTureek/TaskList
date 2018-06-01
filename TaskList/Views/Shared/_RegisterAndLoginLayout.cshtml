@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/dist/loginSass.bundle.js"></script>
+</head>
+<body>
+    <div class="loader">
+        <img src="~/Client/content/loader.svg" />
+    </div>
+
+    <div class="container-fluid">
+        <main class="body-content">
+            @RenderBody()
+        </main>
+    </div>
+    @RenderSection("scripts", required: false)
+    <script src="~/dist/loginTs.bundle.js"></script>
+</body>
+</html>
